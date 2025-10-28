@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FEZ Cafe - Welcome</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Cairo:wght@400;700&family=Titan+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Cairo:wght@400;700&family=Titan+One&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <style>
     :root {
@@ -12,8 +13,12 @@
       --bg: #35D3D4;
       --text: #222;
       --muted: #555;
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     html, body {
@@ -23,7 +28,6 @@
     }
 
     body {
-      background: linear-gradient(135deg, var(--bg) 0%, #5AEEFF 100%);
       font-family: 'Cairo', sans-serif;
       color: var(--text);
       display: flex;
@@ -31,33 +35,29 @@
       align-items: center;
       justify-content: space-between;
       overflow: hidden;
+      background-color: var(--bg);
       position: relative;
     }
 
-    /* Background decorative elements */
-    .bg-decoration {
+    /* Abstract Coffee Background Elements from welcome_2 */
+    .coffee-blob {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .coffee-bean {
-      position: absolute;
-      width: 30px;
-      height: 40px;
-      background-color: #5A3921;
       border-radius: 50%;
-      transform: rotate(var(--rotate, 45deg));
-      opacity: 0.1;
+      filter: blur(20px);
+      z-index: 1;
     }
 
-    /* Logo styling from welcome_1.html */
+    .abstract-shape {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.2;
+    }
+
+    /* Logo styling from welcome_1 */
     .logo-container {
       text-align: center;
       flex: 0 0 auto;
-      margin-top: 20px;
+      margin-top: 30px;
       position: relative;
       z-index: 2;
     }
@@ -72,6 +72,7 @@
       user-select: none;
     }
 
+    /* Animation for FEZ from welcome_1 */
     @keyframes floatPulse {
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-10px) scale(1.05); }
@@ -84,13 +85,11 @@
 
     .fez-logo .f { 
       color: var(--pink); 
-      animation-delay: 0s;
-      text-shadow: 2px 2px 8px rgba(255,64,129,0.4);
     }
     
     .fez-logo .e, .fez-logo .z {
       color: #fff;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.35);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.18);
     }
 
     .fez-logo .e {
@@ -101,17 +100,17 @@
       animation-delay: 0.4s;
     }
 
+    /* Specialty coffee text from welcome_1 */
     .specialty-coffee {
       margin-top: 6px;
       font-size: clamp(12px, 1.2vw, 20px);
       letter-spacing: 6px;
       text-transform: uppercase;
-      color: #fff;
+      color: var(--muted);
       font-weight: 700;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
     }
 
-    /* Welcome container styling from welcome_1.html */
+    /* Welcome container from welcome_1 but with styling from welcome_2 */
     .welcome-container {
       width: min(96%, 1100px);
       flex: 1;
@@ -119,108 +118,13 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: var(--card-bg);
-      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 60px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
       position: relative;
-      overflow: hidden;
+      z-index: 3;
       margin: 30px 0;
-    }
-
-    /* 3D Coffee cup with steam animation from welcome_2.html */
-    .coffee-cup {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      right: 30px;
-      bottom: 20px;
-      transform: rotate(10deg);
-    }
-
-    .cup {
-      position: absolute;
-      bottom: 0;
-      width: 80px;
-      height: 70px;
-      background: #fff;
-      border-radius: 0 0 40px 40px;
-      box-shadow: 
-        inset -5px 0 rgba(0,0,0,0.1),
-        0 8px 10px rgba(0,0,0,0.1);
-    }
-
-    .cup::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: -15px;
-      width: 20px;
-      height: 40px;
-      border-radius: 20px 0 0 20px;
-      background: #fff;
-      box-shadow: 
-        inset -2px 0 rgba(0,0,0,0.1),
-        0 4px 5px rgba(0,0,0,0.1);
-    }
-
-    .cup::after {
-      content: '';
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      right: 5px;
-      height: 15px;
-      background: var(--pink);
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(255,64,129,0.5);
-    }
-
-    @keyframes steam {
-      0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
-      40% { opacity: 0.8; }
-      60% { opacity: 0.6; transform: translateY(-20px) scale(1.2); }
-      80% { opacity: 0.2; transform: translateY(-30px) scale(0.8); }
-    }
-
-    .steam {
-      position: absolute;
-      top: -5px;
-      left: 30px;
-      width: 8px;
-      height: 20px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 10px;
-      animation: steam 3s ease-out infinite;
-    }
-
-    .steam:nth-child(2) {
-      left: 45px;
-      animation-delay: 0.3s;
-    }
-
-    .steam:nth-child(3) {
-      left: 60px;
-      animation-delay: 0.6s;
-    }
-
-    /* 3D Emoji styling from welcome_2.html */
-    .emoji-container {
-      position: absolute;
-      left: 30px;
-      bottom: 20px;
-      font-size: 80px;
-      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
-      transform-style: preserve-3d;
-      animation: floatEmoji 5s ease-in-out infinite;
-    }
-
-    @keyframes floatEmoji {
-      0%, 100% { transform: translateY(0) rotate(0); }
-      50% { transform: translateY(-15px) rotate(5deg); }
     }
 
     #content {
@@ -230,36 +134,170 @@
       text-align: center;
       margin: 10px 0;
       line-height: 1.4;
+    }
+
+    /* Floating elements from welcome_2 */
+    .floating-element {
+      position: absolute;
+      z-index: 1;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .emoji {
+      font-size: 120px;
+      line-height: 1;
+    }
+
+    .steam-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .steam {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 30px;
+      animation: steam 3s ease-in-out infinite;
+    }
+
+    .vapor {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      filter: blur(3px);
+    }
+
+    .vapor-1 {
+      animation: vapor-rise 4s ease-out infinite;
+    }
+
+    .vapor-2 {
+      animation: vapor-rise 4s ease-out infinite 0.5s;
+    }
+
+    .vapor-3 {
+      animation: vapor-rise 4s ease-out infinite 1s;
+    }
+
+    .vapor-4 {
+      animation: vapor-rise 4s ease-out infinite 1.5s;
+    }
+
+    .vapor-5 {
+      animation: vapor-rise 4s ease-out infinite 2s;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes steam {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      50% { transform: translateY(-20px) scale(1.2); opacity: 0.4; }
+      100% { transform: translateY(-40px) scale(1.4); opacity: 0; }
+    }
+
+    @keyframes vapor-rise {
+      0% { 
+        transform: translateY(0) translateX(0) scale(0.5); 
+        opacity: 0; 
+      }
+      20% { 
+        transform: translateY(-10px) translateX(5px) scale(0.8); 
+        opacity: 0.8; 
+      }
+      40% { 
+        transform: translateY(-20px) translateX(-5px) scale(1); 
+        opacity: 0.6; 
+      }
+      60% { 
+        transform: translateY(-30px) translateX(8px) scale(1.2); 
+        opacity: 0.4; 
+      }
+      80% { 
+        transform: translateY(-40px) translateX(-8px) scale(1.5); 
+        opacity: 0.2; 
+      }
+      100% { 
+        transform: translateY(-50px) translateX(0) scale(2); 
+        opacity: 0; 
+      }
+    }
+
+    /* Footer from welcome_1 */
+    .footer {
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 4px 0 8px;
+      width: 100%;
       position: relative;
       z-index: 2;
     }
 
-    .footer {
-      flex: 0 0 auto;
-      text-align: center;
-      padding: 10px 0 15px;
-      width: 100%;
-      background: rgba(0,0,0,0.05);
-    }
-
     .brand-url {
       font-size: 15px;
-      color: #fff;
+      color: var(--muted);
       letter-spacing: 6px;
       font-weight: 600;
       margin-top: 4px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 
 <body>
-  <!-- Background decorations from welcome_2.html -->
-  <div class="bg-decoration">
-    <!-- Coffee beans will be added by JS -->
+  <!-- Abstract background elements from welcome_2 -->
+  <div class="coffee-blob" style="width: 300px; height: 300px; background-color: #6b4423; top: -100px; left: -50px;"></div>
+  <div class="coffee-blob" style="width: 250px; height: 250px; background-color: #ff6b9d; bottom: -50px; right: -50px;"></div>
+  <div class="coffee-blob" style="width: 200px; height: 200px; background-color: #fbc2eb; top: 100px; right: 100px;"></div>
+  
+  <div class="abstract-shape" style="width: 150px; height: 150px; background-color: #ff6b9d; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; top: 50px; left: 200px;"></div>
+  <div class="abstract-shape" style="width: 120px; height: 120px; background-color: #fbc2eb; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; bottom: 100px; left: 150px;"></div>
+  <div class="abstract-shape" style="width: 180px; height: 180px; background-color: #6b4423; border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; top: 200px; right: 200px;"></div>
+
+  <!-- Floating elements from welcome_2 -->
+  <div class="floating-element emoji" style="top: 100px; left: 300px; animation-delay: 0s;">
+    ☕
+    <div class="steam-container">
+      <div class="vapor vapor-1" style="top: -100px; left: 40px;"></div>
+      <div class="vapor vapor-2" style="top: -100px; left: 60px;"></div>
+      <div class="vapor vapor-3" style="top: -100px; left: 50px;"></div>
+      <div class="vapor vapor-4" style="top: -100px; left: 45px;"></div>
+      <div class="vapor vapor-5" style="top: -100px; left: 55px;"></div>
+    </div>
+  </div>
+  
+  <div class="floating-element emoji" style="bottom: 175px; left: 500px; animation-delay: 0s;">
+    ☕
+    <div class="steam-container">
+      <div class="vapor vapor-1" style="top: -100px; left: 40px;"></div>
+      <div class="vapor vapor-2" style="top: -100px; left: 60px;"></div>
+      <div class="vapor vapor-3" style="top: -100px; left: 50px;"></div>
+      <div class="vapor vapor-4" style="top: -100px; left: 45px;"></div>
+      <div class="vapor vapor-5" style="top: -100px; left: 55px;"></div>
+    </div>
+  </div>
+  
+  <div class="floating-element emoji" style="top: 120px; right: 250px; animation-delay: 1.5s;">
+    😊
+  </div>
+  <div class="floating-element emoji" style="bottom: 200px; left: 200px; animation-delay: 2.5s;">
+    ✨
+  </div>
+  <div class="floating-element emoji" style="top: 250px; right: 150px; animation-delay: 3s;">
+    🌸
+  </div>
+  <div class="floating-element emoji" style="bottom: 150px; right: 300px; animation-delay: 1s;">
+    ❤️
   </div>
 
-  <!-- Logo from welcome_1.html -->
+  <!-- Logo container from welcome_1 -->
   <div class="logo-container">
     <div class="fez-logo">
       <span class="f">F</span><span class="e">E</span><span class="z">Z</span>
@@ -267,41 +305,18 @@
     <div class="specialty-coffee">SPECIALTY COFFEE</div>
   </div>
 
-  <!-- Main content container from welcome_1.html with decorations from welcome_2.html -->
+  <!-- Welcome container from welcome_1 -->
   <main class="welcome-container">
-    <div id="content">أهلاً ومرحبًا بكم في كافيه فيز ☕</div>
-    
-    <!-- 3D Coffee cup with steam from welcome_2.html -->
-    <div class="coffee-cup">
-      <div class="cup"></div>
-      <div class="steam"></div>
-      <div class="steam"></div>
-      <div class="steam"></div>
-    </div>
-    
-    <!-- 3D Emoji from welcome_2.html -->
-    <div class="emoji-container">👋</div>
+    <div id="content">أهلاً ومرحبًا بكم في كافيه فيز</div>
   </main>
 
-  <!-- Footer from welcome_1.html -->
+  <!-- Footer from welcome_1 -->
   <footer class="footer">
     <div class="brand-url">FEZ CAFE</div>
   </footer>
 
-  <!-- JavaScript from welcome_1.html -->
+  <!-- JavaScript from welcome_1 -->
   <script>
-    // Add coffee beans to background (from welcome_2.html)
-    const bgDecoration = document.querySelector('.bg-decoration');
-    for (let i = 0; i < 20; i++) {
-      const bean = document.createElement('div');
-      bean.classList.add('coffee-bean');
-      bean.style.left = `${Math.random() * 100}%`;
-      bean.style.top = `${Math.random() * 100}%`;
-      bean.style.setProperty('--rotate', `${Math.random() * 360}deg`);
-      bean.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random()})`;
-      bgDecoration.appendChild(bean);
-    }
-
     // هذا رابط الـ Flask endpoint الذي سيرجع آخر HTML (نص) من n8n عبر السيرفر
     const API_URL = "http://72.60.132.17:5001/data"; // عدّل الـ IP أو domain هنا
 
