@@ -12,6 +12,8 @@
       --bg: #35D3D4;
       --text: #222;
       --muted: #555;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --shadow: rgba(0, 0, 0, 0.1);
     }
 
     html, body {
@@ -21,7 +23,7 @@
     }
 
     body {
-      background: var(--bg);
+      background: linear-gradient(135deg, var(--bg) 0%, #5AEEFF 100%);
       font-family: 'Cairo', sans-serif;
       color: var(--text);
       display: flex;
@@ -29,13 +31,37 @@
       align-items: center;
       justify-content: space-between;
       overflow: hidden;
+      position: relative;
     }
 
+    /* Background decorative elements */
+    .bg-decoration {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .coffee-bean {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      background-color: #5A3921;
+      border-radius: 50%;
+      transform: rotate(var(--rotate, 45deg));
+      opacity: 0.1;
+    }
+
+    /* Logo styling from welcome_1.html */
     .logo-container {
       text-align: center;
       flex: 0 0 auto;
-      margin-top: 10px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 2;
     }
+
     .fez-logo {
       font-family: 'Titan One', cursive;
       font-size: clamp(56px, 8vw, 110px);
@@ -46,7 +72,6 @@
       user-select: none;
     }
 
-    /* ----- pulse animation for FEZ (restored) ----- */
     @keyframes floatPulse {
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-10px) scale(1.05); }
@@ -57,10 +82,23 @@
       animation: floatPulse 3s ease-in-out infinite;
     }
 
-    .fez-logo .f { color: var(--pink); }
+    .fez-logo .f { 
+      color: var(--pink); 
+      animation-delay: 0s;
+      text-shadow: 2px 2px 8px rgba(255,64,129,0.4);
+    }
+    
     .fez-logo .e, .fez-logo .z {
       color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.18);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.35);
+    }
+
+    .fez-logo .e {
+      animation-delay: 0.2s;
+    }
+
+    .fez-logo .z {
+      animation-delay: 0.4s;
     }
 
     .specialty-coffee {
@@ -68,10 +106,12 @@
       font-size: clamp(12px, 1.2vw, 20px);
       letter-spacing: 6px;
       text-transform: uppercase;
-      color: var(--muted);
+      color: #fff;
       font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
     }
 
+    /* Welcome container styling from welcome_1.html */
     .welcome-container {
       width: min(96%, 1100px);
       flex: 1;
@@ -79,10 +119,108 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: #35D3D4;
-      padding: 15px;
+      background: var(--card-bg);
+      padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      margin: 30px 0;
+    }
+
+    /* 3D Coffee cup with steam animation from welcome_2.html */
+    .coffee-cup {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      right: 30px;
+      bottom: 20px;
+      transform: rotate(10deg);
+    }
+
+    .cup {
+      position: absolute;
+      bottom: 0;
+      width: 80px;
+      height: 70px;
+      background: #fff;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 
+        inset -5px 0 rgba(0,0,0,0.1),
+        0 8px 10px rgba(0,0,0,0.1);
+    }
+
+    .cup::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -15px;
+      width: 20px;
+      height: 40px;
+      border-radius: 20px 0 0 20px;
+      background: #fff;
+      box-shadow: 
+        inset -2px 0 rgba(0,0,0,0.1),
+        0 4px 5px rgba(0,0,0,0.1);
+    }
+
+    .cup::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      height: 15px;
+      background: var(--pink);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255,64,129,0.5);
+    }
+
+    @keyframes steam {
+      0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+      40% { opacity: 0.8; }
+      60% { opacity: 0.6; transform: translateY(-20px) scale(1.2); }
+      80% { opacity: 0.2; transform: translateY(-30px) scale(0.8); }
+    }
+
+    .steam {
+      position: absolute;
+      top: -5px;
+      left: 30px;
+      width: 8px;
+      height: 20px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 10px;
+      animation: steam 3s ease-out infinite;
+    }
+
+    .steam:nth-child(2) {
+      left: 45px;
+      animation-delay: 0.3s;
+    }
+
+    .steam:nth-child(3) {
+      left: 60px;
+      animation-delay: 0.6s;
+    }
+
+    /* 3D Emoji styling from welcome_2.html */
+    .emoji-container {
+      position: absolute;
+      left: 30px;
+      bottom: 20px;
+      font-size: 80px;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+      transform-style: preserve-3d;
+      animation: floatEmoji 5s ease-in-out infinite;
+    }
+
+    @keyframes floatEmoji {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-15px) rotate(5deg); }
     }
 
     #content {
@@ -92,43 +230,78 @@
       text-align: center;
       margin: 10px 0;
       line-height: 1.4;
-      /* nothing here that hides or animates on update */
+      position: relative;
+      z-index: 2;
     }
 
     .footer {
       flex: 0 0 auto;
       text-align: center;
-      padding: 4px 0 8px;
+      padding: 10px 0 15px;
+      width: 100%;
+      background: rgba(0,0,0,0.05);
     }
 
     .brand-url {
       font-size: 15px;
-      color: var(--muted);
+      color: #fff;
       letter-spacing: 6px;
       font-weight: 600;
       margin-top: 4px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 
 <body>
+  <!-- Background decorations from welcome_2.html -->
+  <div class="bg-decoration">
+    <!-- Coffee beans will be added by JS -->
+  </div>
+
+  <!-- Logo from welcome_1.html -->
   <div class="logo-container">
     <div class="fez-logo">
-
       <span class="f">F</span><span class="e">E</span><span class="z">Z</span>
     </div>
     <div class="specialty-coffee">SPECIALTY COFFEE</div>
   </div>
 
+  <!-- Main content container from welcome_1.html with decorations from welcome_2.html -->
   <main class="welcome-container">
-    <div id="content">أهلاً ومرحبًا بكم في كافيه فيز</div>
+    <div id="content">أهلاً ومرحبًا بكم في كافيه فيز ☕</div>
+    
+    <!-- 3D Coffee cup with steam from welcome_2.html -->
+    <div class="coffee-cup">
+      <div class="cup"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+    </div>
+    
+    <!-- 3D Emoji from welcome_2.html -->
+    <div class="emoji-container">👋</div>
   </main>
 
+  <!-- Footer from welcome_1.html -->
   <footer class="footer">
     <div class="brand-url">FEZ CAFE</div>
   </footer>
 
+  <!-- JavaScript from welcome_1.html -->
   <script>
+    // Add coffee beans to background (from welcome_2.html)
+    const bgDecoration = document.querySelector('.bg-decoration');
+    for (let i = 0; i < 20; i++) {
+      const bean = document.createElement('div');
+      bean.classList.add('coffee-bean');
+      bean.style.left = `${Math.random() * 100}%`;
+      bean.style.top = `${Math.random() * 100}%`;
+      bean.style.setProperty('--rotate', `${Math.random() * 360}deg`);
+      bean.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random()})`;
+      bgDecoration.appendChild(bean);
+    }
+
     // هذا رابط الـ Flask endpoint الذي سيرجع آخر HTML (نص) من n8n عبر السيرفر
     const API_URL = "http://72.60.132.17:5001/data"; // عدّل الـ IP أو domain هنا
 
