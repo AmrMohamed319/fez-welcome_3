@@ -343,6 +343,76 @@
   </script>
 
   
+  <!-- Fireworks Canvas -->
+  <canvas id="fireworks"></canvas>
+  
+  <script>
+  const fireworksCanvas = document.getElementById("fireworks");
+  const fCtx = fireworksCanvas.getContext("2d");
+  fireworksCanvas.width = window.innerWidth;
+  fireworksCanvas.height = window.innerHeight;
+  fireworksCanvas.style.position = "fixed";
+  fireworksCanvas.style.top = 0;
+  fireworksCanvas.style.left = 0;
+  fireworksCanvas.style.zIndex = 20;
+  fireworksCanvas.style.pointerEvents = "none";
+  
+  function launchFireworks() {
+    const particles = [];
+    const colors = ["#FFD700", "#FF4500", "#FF69B4", "#00BFFF", "#ADFF2F", "#FFA500"];
+  
+    // توليد الألعاب النارية من نقطة عشوائية
+    const originX = Math.random() * fireworksCanvas.width;
+    const originY = Math.random() * fireworksCanvas.height * 0.6;
+  
+    for (let i = 0; i < 100; i++) {
+      const angle = (Math.PI * 2 * i) / 100;
+      const speed = Math.random() * 6 + 2;
+      particles.push({
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        life: 100
+      });
+    }
+  
+    function animateFireworks() {
+      fCtx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      fCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+  
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05; // الجاذبية الخفيفة
+        p.life--;
+  
+        fCtx.beginPath();
+        fCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        fCtx.fillStyle = p.color;
+        fCtx.fill();
+  
+        if (p.life <= 0) particles.splice(i, 1);
+      });
+  
+      if (particles.length > 0) requestAnimationFrame(animateFireworks);
+    }
+  
+    animateFireworks();
+  }
+  
+  function triggerFireworks() {
+    // اطلاق 3 مجموعات متتابعة بفاصل 1 ثانية
+    launchFireworks();
+    setTimeout(launchFireworks, 1000);
+    setTimeout(launchFireworks, 2000);
+  
+    // تنظيف بعد 5 ثواني
+    setTimeout(() => fCtx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height), 5000);
+  }
+  </script>
+
   
 
 
