@@ -343,62 +343,7 @@
   </script>
 
   
-  <!-- Coffee Splash Effect -->
-  <canvas id="fireworks"></canvas>
-
-  <script>
-    const fireworksCanvas = document.getElementById("fireworks");
-    const fCtx = fireworksCanvas.getContext("2d");
-    fireworksCanvas.width = window.innerWidth;
-    fireworksCanvas.height = window.innerHeight;
-    
-    function launchFireworks() {
-      const particles = [];
-      const colors = ["#FFD700", "#FF4500", "#FF69B4", "#00BFFF", "#ADFF2F"];
-    
-      for (let i = 0; i < 100; i++) {
-        const angle = (Math.PI * 2 * i) / 100;
-        const speed = Math.random() * 6 + 2;
-        particles.push({
-          x: window.innerWidth / 2,
-          y: window.innerHeight / 2,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          life: 100
-        });
-    }
-    
-      function animateFireworks() {
-        fCtx.fillStyle = "rgba(0,0,0,0.1)";
-        fCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
-    
-        particles.forEach((p, i) => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.05; // الجاذبية
-          p.life--;
-          fCtx.beginPath();
-          fCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-          fCtx.fillStyle = p.color;
-          fCtx.fill();
-          if (p.life <= 0) particles.splice(i, 1);
-        });
-    
-        if (particles.length > 0) requestAnimationFrame(animateFireworks);
-      }
-    
-      animateFireworks();
-    }
-    
-    function triggerFireworks() {
-      launchFireworks();
-      setTimeout(() => fCtx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height), 4000);
-    }
-  </script>
-
   
-  <button onclick="triggerFireworks()">🎆 Celebrate!</button>
 
 
 
