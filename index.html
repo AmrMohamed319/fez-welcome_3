@@ -310,56 +310,6 @@
     <div id="content">أهلاً ومرحبًا بكم في كافيه فيز</div>
   </main>
   
-  <!-- Coffee Splash Effect -->
-  <canvas id="coffeeSplash"></canvas>
-
-  <script>
-const canvas = document.getElementById("coffeeSplash");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-function splashEffect() {
-  const particles = [];
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2 + 100;
-
-  for (let i = 0; i < 30; i++) {
-    particles.push({
-      x: centerX,
-      y: centerY,
-      radius: Math.random() * 6 + 2,
-      color: `rgba(111, 78, 55, ${Math.random()})`, // لون قهوة
-      velocityX: (Math.random() - 0.5) * 10,
-      velocityY: (Math.random() - 1.2) * 10,
-      gravity: 0.3
-    });
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.x += p.velocityX;
-      p.y += p.velocityY;
-      p.velocityY += p.gravity;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
-
-// استخدمها عند أي حدث:
-function triggerCoffeeSplash() {
-  splashEffect();
-  setTimeout(() => ctx.clearRect(0, 0, canvas.width, canvas.height), 2000);
-}
-</script>
-
-
   <!-- Footer from welcome_1 -->
   <footer class="footer">
     <div class="brand-url">FEZ CAFE</div>
@@ -391,5 +341,58 @@ function triggerCoffeeSplash() {
     fetchContent();
     setInterval(fetchContent, 3000);
   </script>
+
+  <!-- Coffee Splash Effect -->
+  <canvas id="coffeeSplash"></canvas>
+
+  <script>
+  const canvas = document.getElementById("coffeeSplash");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  function splashEffect() {
+    const particles = [];
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2 + 100;
+  
+    for (let i = 0; i < 30; i++) {
+      particles.push({
+        x: centerX,
+        y: centerY,
+        radius: Math.random() * 6 + 2,
+        color: `rgba(111, 78, 55, ${Math.random()})`, // لون قهوة
+        velocityX: (Math.random() - 0.5) * 10,
+        velocityY: (Math.random() - 1.2) * 10,
+        gravity: 0.3
+    });
+  }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.velocityX;
+        p.y += p.velocityY;
+        p.velocityY += p.gravity;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+  // استخدمها عند أي حدث:
+  function triggerCoffeeSplash() {
+    splashEffect();
+    setTimeout(() => ctx.clearRect(0, 0, canvas.width, canvas.height), 2000);
+  }
+  </script>
+  
+  <button onclick="triggerCoffeeSplash()" style="position:fixed;bottom:20px;right:20px;z-index:50;">☕ رذاذ قهوة</button>
+
+
 </body>
 </html>
