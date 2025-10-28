@@ -78,13 +78,24 @@
       50% { transform: translateY(-10px) scale(1.05); }
     }
 
+    /* إضافة تأثير البريق والإضاءة للشعار */
+    @keyframes ambientGlow {
+      0%, 100% { 
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.18);
+      }
+      50% { 
+        text-shadow: 0 0 15px rgba(255, 64, 129, 0.7), 0 0 30px rgba(255, 64, 129, 0.4), 2px 2px 4px rgba(0,0,0,0.18);
+      }
+    }
+
     .fez-logo span {
       display: inline-block;
       animation: floatPulse 3s ease-in-out infinite;
     }
 
     .fez-logo .f { 
-      color: var(--pink); 
+      color: var(--pink);
+      animation: floatPulse 3s ease-in-out infinite, ambientGlow 8s ease-in-out infinite;
     }
     
     .fez-logo .e, .fez-logo .z {
@@ -94,10 +105,12 @@
 
     .fez-logo .e {
       animation-delay: 0.2s;
+      animation: floatPulse 3s ease-in-out infinite 0.2s, ambientGlow 8s ease-in-out infinite 2s;
     }
 
     .fez-logo .z {
       animation-delay: 0.4s;
+      animation: floatPulse 3s ease-in-out infinite 0.4s, ambientGlow 8s ease-in-out infinite 4s;
     }
 
     /* Specialty coffee text from welcome_1 */
@@ -341,5 +354,69 @@
     fetchContent();
     setInterval(fetchContent, 3000);
   </script>
+</body>
+</html>
+
+<!-- إضافة تأثير رذاذ القهوة -->
+.coffee-splash {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.splash {
+  position: absolute;
+  background-color: #6b4423;
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+}
+
+@keyframes splash {
+  0% { 
+    transform: scale(0); 
+    opacity: 0; 
+  }
+  20% { 
+    transform: scale(1); 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(1.5); 
+    opacity: 0; 
+  }
+}
+
+.splash-1 {
+  width: 10px;
+  height: 10px;
+  animation: splash 4s ease-out infinite;
+}
+
+.splash-2 {
+  width: 15px;
+  height: 15px;
+  animation: splash 4s ease-out infinite 1s;
+}
+
+.splash-3 {
+  width: 8px;
+  height: 8px;
+  animation: splash 4s ease-out infinite 2s;
+}
+
+.splash-4 {
+  width: 12px;
+  height: 12px;
+  animation: splash 4s ease-out infinite 3s;
+}
+
+.splash-5 {
+  width: 6px;
+  height: 6px;
+  animation: splash 4s ease-out infinite 2.5s;
+}
 </body>
 </html>
