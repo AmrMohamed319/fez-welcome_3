@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FEZ Cafe - Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Cairo:wght@400;700&family=Titan+One&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink: #FF4081;
+      --bg: #35D3D4;
+      --text: #222;
+      --muted: #555;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Cairo', sans-serif;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .logo-container {
+      text-align: center;
+      flex: 0 0 auto;
+      margin-top: 10px;
+    }
+    .fez-logo {
+      font-family: 'Titan One', cursive;
+      font-size: clamp(56px, 8vw, 110px);
+      letter-spacing: clamp(10px, 2.5vw, 20px);
+      line-height: 1;
+      direction: ltr;
+      unicode-bidi: isolate;
+      user-select: none;
+    }
+
+    /* ----- pulse animation for FEZ (restored) ----- */
+    @keyframes floatPulse {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+    }
+
+    .fez-logo span {
+      display: inline-block;
+      animation: floatPulse 3s ease-in-out infinite;
+    }
+
+    .fez-logo .f { color: var(--pink); }
+    .fez-logo .e, .fez-logo .z {
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.18);
+    }
+
+    .specialty-coffee {
+      margin-top: 6px;
+      font-size: clamp(12px, 1.2vw, 20px);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .welcome-container {
+      width: min(96%, 1100px);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #35D3D4;
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    }
+
+    #content {
+      font-size: clamp(24px, 3.5vw, 32px);
+      color: var(--text);
+      font-weight: 700;
+      text-align: center;
+      margin: 10px 0;
+      line-height: 1.4;
+      /* nothing here that hides or animates on update */
+    }
+
+    .footer {
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 4px 0 8px;
+    }
+
+    .brand-url {
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 6px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo-container">
+    <div class="fez-logo">
+
+      <span class="f">F</span><span class="e">E</span><span class="z">Z</span>
+    </div>
+    <div class="specialty-coffee">SPECIALTY COFFEE</div>
+  </div>
+
+  <main class="welcome-container">
+    <div id="content">أهلاً ومرحبًا بكم في كافيه فيز</div>
+  </main>
+
+  <footer class="footer">
+    <div class="brand-url">FEZ CAFE</div>
+  </footer>
+
+  <script>
+    // هذا رابط الـ Flask endpoint الذي سيرجع آخر HTML (نص) من n8n عبر السيرفر
+    const API_URL = "http://72.60.132.17:5001/data"; // عدّل الـ IP أو domain هنا
+
+    async function fetchContent() {
+      try {
+        // نقرأ كـ نص لأن الباك إند سيرجع HTML جاهز للعرض
+        const res = await fetch(API_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error('network');
+        const html = await res.text();
+
+        const contentEl = document.getElementById("content");
+        if (html && html.trim() !== "") {
+          // نستخدم innerHTML لعرض الـ HTML المرسل من n8n
+          contentEl.innerHTML = html;
+        }
+      } catch (err) {
+        console.warn('خطأ في جلب البيانات:', err);
+      }
+    }
+
+    // جلب مبدئي وتكرار كل 3 ثواني — المحتوى يتغيّر بدون أي اختفاء/ظهور
+    fetchContent();
+    setInterval(fetchContent, 3000);
+  </script>
+</body>
+</html>
