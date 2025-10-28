@@ -380,7 +380,7 @@
   
     function animateFireworks() {
       fCtx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      fCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+      fCtx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
   
       particles.forEach((p, i) => {
         p.x += p.vx;
